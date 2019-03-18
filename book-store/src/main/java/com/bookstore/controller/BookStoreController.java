@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import com.bookstore.model.UploadFileResponse;
 
@@ -59,13 +59,14 @@ public class BookStoreController {
 	    }
 	    
 	    @DeleteMapping("/deleteBook/{id}")
-	    public void deleteBook(@PathVariable long id) {
+	    public ResponseEntity<Response> deleteBook(@PathVariable long id) {
 	    	bookStorageService.deleteBookById(id);
+	    	 return new ResponseEntity<Response>(new Response(HttpStatus.OK.value(), "Book hs been deleted"), HttpStatus.OK);
 	    }
 	 
 	    
 	    @PutMapping("/bookChange/{id}")
-	    public ResponseEntity<Object> updateStudent(@RequestBody Book book, @PathVariable long id) {
+	    public ResponseEntity<Response> updateStudent(@RequestBody Book book, @PathVariable long id) {
 
 	    	Book bookOptional = bookStorageService.findById(id);
 
@@ -76,7 +77,7 @@ public class BookStoreController {
 	    	
 	    	 bookStorageService.saveBookDetail(bookOptional);
 
-	    	return ResponseEntity.noContent().build();
+	    	 return new ResponseEntity<Response>(new Response(HttpStatus.OK.value(), "Price of book has been changed"), HttpStatus.OK);
 	    }
 	 
 	    

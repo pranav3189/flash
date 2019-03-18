@@ -69,6 +69,18 @@ public class BookStoreControllerTest {
 	       JSONAssert.assertEquals(expected, result.getResponse()
 					.getContentAsString(), false);
 	   }
+	 
+	 
+	 
+	
+	 
+	 
+	
+	 @Test
+		public void verifyDeleteToDo() throws Exception {
+		 MvcResult result=	mockMvc.perform(MockMvcRequestBuilders.delete("/api/deleteBook/4").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
+			
+		}
 
 	
 	
